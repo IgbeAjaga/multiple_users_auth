@@ -6,7 +6,7 @@
   <div class="card-body">
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-4">
-      <a class="btn btn-primary btn-sm" href="{{ route('alloutgoing') }}">
+      <a class="btn btn-primary btn-sm" href="{{ route('allincoming') }}">
         <i class="fa fa-arrow-left"></i> Back
       </a>
       <button class="btn btn-success btn-sm" onclick="window.print()">
@@ -19,7 +19,8 @@
     @if(request('drug'))  {{ request('drug') }} @endif
     @if(request('response')) drugs {{ request('response') }} - @endif
     @if(request('branchcalled')) {{ request('branchcalled') }} branch @endif
-    @if(request('branchthatcalled')) {{ request('branchthatcalled') }} branch @endif
+    @if(request('customer')) {{ request('customer') }} customer @endif
+    @if(request('phone')) {{ request('phone') }} phone @endif
     @if(request('date_from')) from {{ request('date_from') }} @endif
     @if(request('date_to')) to {{ request('date_to') }} @endif
     </h2>
@@ -38,6 +39,8 @@
                     <th>Gwarina 3</th>
                     <th>Gana PX</th>
                     <th>Ferma</th>
+                    <th>Wholesale</th>
+                    <th>Gan Aso Guz</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,7 +59,8 @@
         @if(request('drug'))  {{ request('drug') }} @endif
         @if(request('response')) drugs {{ request('response') }} - @endif
         @if(request('branchcalled')) {{ request('branchcalled') }} branch @endif
-        @if(request('branchthatcalled')) {{ request('branchthatcalled') }} branch @endif
+        @if(request('customer')) {{ request('customer') }} customer @endif
+        @if(request('phone')) {{ request('phone') }} phone @endif
         @if(request('date_from')) from {{ request('date_from') }} @endif
         @if(request('date_to')) to {{ request('date_to') }} @endif
         </h2>
@@ -73,15 +77,17 @@
         </tr>
       </thead>
       <tbody>
-        @forelse ($outgoingcalls as $outgoingcall)
+        @forelse ($incomingcalls as $incomingcall)
           <tr>
             <td>{{ ++$i }}</td>
-            <td>{{ $outgoingcall->branchcalled }}</td>
-            <td>{{ $outgoingcall->drug }}</td>
-            <td>{{ $outgoingcall->response }}</td>
-            <td>{{ $outgoingcall->call }}</td>
-            <td>{{ $outgoingcall->branchthatcalled }}</td>             
-            <td>{{ $outgoingcall->created_at->format('Y-m-d H:i:s') }}</td>
+            <td>{{ $incomingcall->branchcalled }}</td>
+            <td>{{ $incomingcall->drug }}</td>
+            <td>{{ $incomingcall->response }}</td>
+            <td>{{ $incomingcall->call }}</td>
+            <td>{{ $incomingcall->branchthatcalled }}</td>
+            <td>{{ $incomingcall->customer }}</td>
+            <td>{{ $incomingcall->phone }}</td>              
+            <td>{{ $incomingcall->created_at->format('Y-m-d H:i:s') }}</td>
           </tr>
         @empty
           <tr>
@@ -91,7 +97,7 @@
       </tbody>
     </table>
 
-    {!! $outgoingcalls->links() !!}
+    {!! $incomingcalls->links() !!}
   </div>
 </div>
 @endsection

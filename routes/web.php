@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('incomingcalls', IncomingController::class);
     Route::resource('outgoingcalls', OutgoingController::class);
     
+    
     Route::get('/alloutgoing', [OutgoingController::class, 'index'])->name('alloutgoing');
     Route::get('/allincoming', [IncomingController::class, 'index'])->name('allincoming');
     Route::get('/addincoming', [IncomingController::class, 'create'])->name('addincoming');
@@ -43,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
 
     Route::get('/search', [OutgoingController::class, 'search'])->name('search');
+    Route::get('/searchin', [IncomingController::class, 'search'])->name('searchin');
 Route::get('/export', [OutgoingController::class, 'export'])->name('outgoingcalls.export');
 Route::get('/incomingcalls/export', 'IncomingController@export')->name('incomingcalls.export');
 

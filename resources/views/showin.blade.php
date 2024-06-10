@@ -7,41 +7,46 @@
   <div class="card-body">
   
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a class="btn btn-primary btn-sm" href="{{ route('alloutgoing') }}"><i class="fa fa-arrow-left"></i> Back</a>
+        <a class="btn btn-primary btn-sm" href="{{ route('allincoming') }}"><i class="fa fa-arrow-left"></i> Back</a>
     </div>
   
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Branch Called:</strong> <br/>
-                {{ $outgoingcall->branchcalled }}
+                {{ $incomingcall->branchcalled }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
             <div class="form-group">
                 <strong>Drug Requested:</strong> <br/>
-                {{ $outgoingcall->drug }}
+                {{ $incomingcall->drug }}
             </div>
         </div>
         <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Response:</strong> <br/>
-                {{ $outgoingcall->response }}
+                {{ $incomingcall->response }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Number of Call:</strong> <br/>
-                {{ $outgoingcall->call }}
+                {{ $incomingcall->call }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Branch Called From:</strong> <br/>
-                {{ $outgoingcall->branchthatcalled }}
+                <strong>Customer's Name:</strong> <br/>
+                {{ $incomingcall->customer }}
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
+            <div class="form-group">
+                <strong>Customer's Phone:</strong> <br/>
+                {{ $incomingcall->phone }}
+            </div>
     </div>
   
   </div>

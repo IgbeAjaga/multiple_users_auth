@@ -12,7 +12,7 @@
     @endif
 
     <!-- Search Form -->
-    <form action="{{ route('outgoingcalls.search') }}" method="GET" class="mb-4">
+    <form action="{{ route('search') }}" method="GET" class="mb-4">
       <div class="row">
 
       <div class="mb-3">
@@ -146,3 +146,4 @@
   </div>
 </div>
 @endsection
+

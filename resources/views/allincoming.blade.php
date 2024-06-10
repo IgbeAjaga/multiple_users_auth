@@ -12,7 +12,7 @@
     @endif
 
     <!-- Search Form -->
-    <form action="{{ route('outgoingcalls.search') }}" method="GET" class="mb-4">
+    <form action="{{ route('searchin') }}" method="GET" class="mb-4">
       <div class="row">
 
       <div class="mb-3">
@@ -53,25 +53,11 @@
             @enderror
         </div>
 
-        <div class="mb-3">
-            <label for="inputBranchthatcalled" class="form-label"><strong>Branch that called:</strong></label>
-            <select name="branchthatcalled" id="inputBranchthatcalled" class="form-select @error('branchthatcalled') is-invalid @enderror">
-                <option value="">Select Branch</option>
-                <option value="Asokoro">Asokoro</option>
-                <option value="Maitama">Maitama</option>
-                <option value="Garki">Garki</option>
-                <option value="Gimbiya PX">Gimbiya PX</option>
-                <option value="New Ademola">New Ademola</option>
-                <option value="Old Ademola">Old Ademola</option>
-                <option value="Old Gwarinpa">Old Gwarinpa</option>
-                <option value="New Gwarinpa">New Gwarinpa</option>
-                <option value="Gwarina 3">Gwarina 3</option>
-                <option value="Gana PX">Gana PX</option>
-                <option value="Ferma">Ferma</option>                
-            </select>
-            @error('branchthatcalled')
-                <div class="form-text text-danger">{{ $message }}</div>
-            @enderror
+        <div class="col-md-3">
+          <input type="text" name="customer" class="form-control" placeholder="Enter Customer's name">
+        </div>
+        <div class="col-md-3">
+          <input type="text" name="phone" class="form-control" placeholder="Enter Customer's phone">
         </div>
 
         <div class="col-md-3">

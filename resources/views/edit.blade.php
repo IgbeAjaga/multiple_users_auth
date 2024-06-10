@@ -10,7 +10,7 @@
         <a class="btn btn-primary btn-sm" href="{{ route('alloutgoing') }}"><i class="fa fa-arrow-left"></i> Back</a>
     </div>
   
-    <form action="{{ route('outgoingcalls.update',$outgoingcalls->id) }}" method="POST">
+    <form action="{{ route('outgoingcalls.update',$outgoingcall->id) }}" method="POST">
         @csrf
         @method('PUT')
   
@@ -40,7 +40,7 @@
             <input 
                 type="text" 
                 name="drug" 
-                value="{{ $outgoingcalls->drug }}"
+                value="{{ $outgoingcall->drug }}"
                 class="form-control @error('drug') is-invalid @enderror" 
                 id="inputDrug" 
                 placeholder="Drug Requested">
@@ -67,7 +67,7 @@
             <input 
                 type="text" 
                 name="call" 
-                value="{{ $outgoingcalls->call }}"
+                value="{{ $outgoingcall->call }}"
                 class="form-control @error('call') is-invalid @enderror" 
                 id="inputCall" 
                 placeholder="Number of Calls">

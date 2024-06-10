@@ -4,6 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Incomingcalls;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
+use App\Http\Requests\IncomingStoreRequest;
+use App\Exports\ProductsExport;
+use App\Http\Requests\IncomingUpdateRequest;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IncomingController extends Controller
 {
@@ -47,28 +54,29 @@ class IncomingController extends Controller
                          ->with('success', 'Incominging calls reported successfully.');
     }
 
-    /**
+   /**
      * Display the specified resource.
      */
-    public function show(Incomingcalls $incomingcalls)
+    public function show(Incomingcalls $incomingcall)
     {
-        return view('show',compact('incomingcalls'));
+        return view('showin',compact('incomingcall'));
     }
+    
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Incomingcalls $incomingcalls)
+    public function edit(Incomingcalls $incomingcall)
     {
-        return view('editin',compact('incomingcalls'));
+        return view('editin',compact('incomingcall'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(IncomingUpdateRequest $request, Incomingcalls $incomingcalls): RedirectResponse
+    public function update(IncomingUpdateRequest $request, Incomingcalls $incomingcall): RedirectResponse
     {
-        $incomingcalls->update($request->validated());
+        $incomingcall->update($request->validated());
           
         return redirect()->route('allincoming')
                         ->with('success','Report updated successfully');
@@ -77,14 +85,13 @@ class IncomingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Incomingcalls $incomingcalls)
+    public function destroy(Incomingcalls $incomingcall)
     {
-        $incomingcalls->delete();
+        $incomingcall->delete();
            
         return redirect()->route('allincoming')
                         ->with('success','Incoming calls deleted successfully');
     }
-
      /**
      * Show the form for creating a new resource.
      */
@@ -93,54 +100,61 @@ class IncomingController extends Controller
      * Search the products based on various criteria.
      */
     public function search(Request $request): \Illuminate\Contracts\View\View
-{
-    $query = Outgoingcalls::query();
+    {
+        $query = Incomingcalls::query();
 
-    if ($request->filled('branchcalled')) {
-        $query->where('branchcalled', 'like', '%' . $request->branchcalled . '%');
-    }
+        if ($request->filled('branchcalled')) {
+            $query->where('branchcalled', 'like', '%' . $request->branchcalled . '%');
+        }
 
-    if ($request->filled('drug')) {
-        $query->where('drug', 'like', '%' . $request->drug . '%');
-    }
+        if ($request->filled('customer')) {
+            $query->where('customer', 'like', '%' . $request->customer . '%');
+        }
 
-    if ($request->filled('response')) {
-        $query->where('response', $request->response);
-    }
-    if ($request->filled('branchthatcalled')) {
-        $query->where('branchthatcalled', 'like', '%' . $request->branchthatcalled . '%');
-    }
+        if ($request->filled('phone')) {
+            $query->where('phone', 'like', '%' . $request->phone . '%');
+        }
 
-    if ($request->filled('date_from')) {
-        $query->whereDate('created_at', '>=', $request->date_from);
-    }
+        if ($request->filled('drug')) {
+            $query->where('drug', 'like', '%' . $request->drug . '%');
+        }
 
-    if ($request->filled('date_to')) {
-        $query->whereDate('created_at', '<=', $request->date_to);
-    }
+        if ($request->filled('response')) {
+            $query->where('response', $request->response);
+        }
 
-    $outgoingcalls = $query->paginate(10);
+        if ($request->filled('date_from')) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
 
-    // Prepare the aggregated data for the table
-    $drugData = $outgoingcalls->groupBy('drug')->map(function ($items, $drug) {
-        $branches = [
-            'Asokoro' => 0, 'Maitama' => 0, 'Garki' => 0, 'Gimbiya PX' => 0,
-            'New Ademola' => 0, 'Old Ademola' => 0, 'Old Gwarinpa' => 0,
-            'New Gwarinpa' => 0, 'Gwarina 3' => 0, 'Gana PX' => 0, 'Ferma' => 0
-        ];
-    
-        foreach ($items as $item) {
-            if (array_key_exists($item->branchthatcalled, $branches)) {
-                $branches[$item->branchthatcalled]++;
+        if ($request->filled('date_to')) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        $incomingcalls = $query->paginate(10);
+
+        // Prepare the aggregated data for the table
+        $drugData = [];
+        foreach ($incomingcalls as $call) {
+            $drug = $call->drug;
+            $branch = $call->branchcalled;
+            
+            if (!isset($drugData[$drug])) {
+                $drugData[$drug] = [
+                    'Asokoro' => 0, 'Maitama' => 0, 'Garki' => 0, 'Gimbiya PX' => 0,
+                    'New Ademola' => 0, 'Old Ademola' => 0, 'Old Gwarinpa' => 0,
+                    'New Gwarinpa' => 0, 'Gwarina 3' => 0, 'Gana PX' => 0, 'Ferma' => 0, 
+                    'Wholesale' => 0, 'Gan Aso Guz' => 0
+                ];
+            }
+
+            if (array_key_exists($branch, $drugData[$drug])) {
+                $drugData[$drug][$branch]++;
             }
         }
-    
-        return array_merge(['drug' => $drug], $branches);
-    });   
-        
 
-    return view('search', compact('outgoingcalls', 'drugData'))->with('i', (request()->input('page', 1) - 1) * 10);
-}
+        return view('searchin', compact('incomingcalls', 'drugData'))->with('i', (request()->input('page', 1) - 1) * 10);
+    }
 
 public function export()
     {

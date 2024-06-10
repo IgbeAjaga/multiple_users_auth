@@ -10,7 +10,7 @@
         <a class="btn btn-primary btn-sm" href="{{ route('allincoming') }}"><i class="fa fa-arrow-left"></i> Back</a>
     </div>
   
-    <form action="{{ route('incomingcalls.update',$incomingcalls->id) }}" method="POST">
+    <form action="{{ route('incomingcalls.update',$incomingcall->id) }}" method="POST">
         @csrf
         @method('PUT')
   
@@ -40,7 +40,7 @@
             <input 
                 type="text" 
                 name="drug" 
-                value="{{ $incomingcalls->drug }}"
+                value="{{ $incomingcall->drug }}"
                 class="form-control @error('drug') is-invalid @enderror" 
                 id="inputDrug" 
                 placeholder="Drug Requested">
@@ -67,7 +67,7 @@
             <input 
                 type="text" 
                 name="call" 
-                value="{{ $incomingcalls->call }}"
+                value="{{ $incomingcall->call }}"
                 class="form-control @error('call') is-invalid @enderror" 
                 id="inputCall" 
                 placeholder="Number of Calls">
@@ -76,35 +76,33 @@
             @enderror
         </div>
 
-        <!-- New fields: customer name and phone -->
         <div class="mb-3">
-            <label for="inputCustomer" class="form-label"><strong>Customer Name:</strong></label>
+            <label for="inputCustomer" class="form-label"><strong>Customer's Name:</strong></label>
             <input 
                 type="text" 
-                name="customer"
-                value="{{ $incomingcalls->customer }}"
+                name="customer" 
+                value="{{ $incomingcall->customer }}"
                 class="form-control @error('customer') is-invalid @enderror" 
                 id="inputCustomer" 
-                placeholder="Customer Name">
+                placeholder="Customer Requested">
             @error('customer')
                 <div class="form-text text-danger">{{ $message }}</div>
             @enderror
         </div>
 
         <div class="mb-3">
-            <label for="inputPhone" class="form-label"><strong>Customer Phone:</strong></label>
+            <label for="inputPhone" class="form-label"><strong>Customer's Phone:</strong></label>
             <input 
                 type="text" 
-                name="phone"
-                value="{{ $incomingcalls->phone }}" 
+                name="phone" 
+                value="{{ $incomingcall->phone }}"
                 class="form-control @error('phone') is-invalid @enderror" 
                 id="inputPhone" 
-                placeholder="Phone Number">
+                placeholder="Customer's phone">
             @error('phone')
                 <div class="form-text text-danger">{{ $message }}</div>
             @enderror
         </div>
-        <!-- End of new fields -->
 
         <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Update</button>
     </form>
