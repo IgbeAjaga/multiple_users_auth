@@ -19,6 +19,9 @@
                         <div class="w-full sm:w-1/2 lg:w-1/3 p-2">
                             <a href="{{ route('addincoming') }}" class="btn btn-primary w-full bg-red-500 text-white py-2 px-4 rounded">Add Incoming Report</a>
                         </div>
+                        <div class="w-full sm:w-1/2 lg:w-1/3 p-2">
+                            <a href="{{ route('dashboard') }}" class="btn btn-primary w-full bg-orange-500 text-white py-2 px-4 rounded">Home</a>
+                        </div>
                     </div>
                 </div>
             </div>

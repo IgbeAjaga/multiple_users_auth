@@ -1,5 +1,4 @@
 @extends('products.layout')
-
 @section('content')
 <div class="card mt-5">
   <h2 class="card-header text-center text-primary"><strong>OUTGOING CALLS REPORT</strong></h2>
@@ -10,6 +9,12 @@
         {{ session('success') }}
       </div>
     @endif
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <a class="btn btn-success btn-sm" href="{{ route('dashboard') }}">
+        <i class="fa fa-home"></i> Dashboard
+      </a>
+</div>
 
     <!-- Search Form -->
     <form action="{{ route('search') }}" method="GET" class="mb-4">
@@ -146,4 +151,3 @@
   </div>
 </div>
 @endsection
-
