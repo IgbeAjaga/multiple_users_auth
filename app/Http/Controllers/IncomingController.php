@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use App\Http\Requests\IncomingStoreRequest;
-use App\Exports\ProductsExport;
+use App\Exports\IncomingCallsExport;
 use App\Http\Requests\IncomingUpdateRequest;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -156,9 +156,9 @@ class IncomingController extends Controller
         return view('searchin', compact('incomingcalls', 'drugData'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
-public function export()
+    public function export()
     {
-        return Excel::download(new incomingcallsExport, 'incomingcalls.xlsx');
+        return Excel::download(new IncomingCallsExport, 'incoming_calls.xlsx');
     }
     
     

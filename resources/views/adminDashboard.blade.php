@@ -1,5 +1,3 @@
-<!-- resources/views/adminDashboard.blade.php -->
-
 <x-app-layout>
     <x-slot name="header">
        
@@ -26,7 +24,7 @@
                             <a href="{{ route('allincoming') }}" class="btn btn-primary w-full bg-yellow-500 text-white py-2 px-4 rounded">View All Incoming Report</a>
                         </div>
                         <div class="w-full sm:w-1/2 lg:w-1/3 p-2">
-                            <a href="{{ route('dashboard') }}" class="btn btn-primary w-full bg-orange-500 text-white py-2 px-4 rounded">Home</a>
+                            <a href="{{ route('profile.edit') }}" class="btn btn-primary w-full bg-orange-500 text-white py-2 px-4 rounded">Profile</a>
                         </div>
                         <div class="w-full sm:w-1/2 lg:w-1/3 p-2">
                             <a href="{{ route('profile.index') }}" class="btn btn-primary w-full bg-purple-500 text-white py-2 px-4 rounded">View All Users</a>

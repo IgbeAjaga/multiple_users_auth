@@ -4,15 +4,27 @@
   <h2 class="card-header text-center text-primary"><strong>OUTGOING CALLS REPORT</strong></h2>
   <div class="card-body">
 
-    @if(session('success'))
-      <div class="alert alert-success" role="alert">
+  @if(session('success'))
+      <div class="alert alert-success mt-3">
         {{ session('success') }}
       </div>
     @endif
 
+    @if(session('error'))
+      <div class="alert alert-danger mt-3">
+        {{ session('error') }}
+      </div>
+    @endif
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <a class="btn btn-success btn-sm" href="{{ route('dashboard') }}">
         <i class="fa fa-home"></i> Dashboard
+      </a>
+      <a class="btn btn-success btn-sm" href="{{ route('outgoingcalls.create') }}">
+        <i class="fa fa-plus"></i> Add New Report
+      </a>   
+      
+      <a class="btn btn-secondary btn-sm" href="{{ route('outgoingcalls.export') }}">
+        <i class="fa fa-file-excel"></i> Export to Excel
       </a>
 </div>
 
@@ -89,17 +101,7 @@
           <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
         </div>
       </div>
-    </form>
-
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <a class="btn btn-success btn-sm" href="{{ route('outgoingcalls.create') }}">
-        <i class="fa fa-plus"></i> Add New Report
-      </a>   
-      
-      <a class="btn btn-secondary btn-sm" href="{{ route('outgoingcalls.export') }}">
-        <i class="fa fa-file-excel"></i> Export to Excel
-      </a>
-    </div>
+    </form>    
 
     <table class="table table-bordered table-striped mt-4">
       <thead>

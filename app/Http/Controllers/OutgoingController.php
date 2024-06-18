@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use App\Http\Requests\OutgoingStoreRequest;
-use App\Exports\ProductsExport;
+use App\Exports\OutgoingCallsExport;
 use App\Http\Requests\OutgoingUpdateRequest;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -153,9 +153,9 @@ public function search(Request $request): \Illuminate\Contracts\View\View
 
     
     
-public function export()
+    public function export()
     {
-        return Excel::download(new ProductsExport, 'outgoingcalls.xlsx');
+        return Excel::download(new OutgoingCallsExport, 'outgoing_calls.xlsx');
     }
     
     

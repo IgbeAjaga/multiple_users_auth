@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerCareAuth
 {
@@ -13,12 +14,15 @@ class CustomerCareAuth
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        if(Auth()->user()->role == 'customercare'){ 
+        // Check if the authenticated user is a superadmin
+        if (Auth::check() && Auth::user()->role === 'customercare') {
             return $next($request);
-        }else{
-            return redirect()->route('login')->with('error', 'You do not have permission to access this page !');
         }
+
+        // If the user is not a superadmin, redirect to the index page
+        return redirect()->route('/')->with('error', 'You do not have permission to access this page !');
+    }
     }
 }
